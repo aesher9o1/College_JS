@@ -1,0 +1,32 @@
+function getColleges() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var startRow = 2;  // First row of data to process
+  var numRows =  3;   // Number of rows to process
+  
+  
+  // Fetch the range of startrow , startcolumn, end row, end column
+  var dataRange = sheet.getRange(startRow,1,numRows,3)
+  var data = dataRange.getValues();
+        
+  for (i in data) {
+    var row = data[i];
+    var subject = "Your Subject of the internship here";
+    var saluation = row[0];
+    var emailAddress = row[1];  // First column
+    var college = row[2];
+    
+    var message = "Write down a simple body of the email or personalise it with HTML both would work just fine" ;
+    
+    var file = DriveApp.getFilesByName('Aashis_CV.pdf');
+   
+    
+    MailApp.sendEmail({
+     to: emailAddress,
+     subject: subject,
+     htmlBody: message,
+     attachments: [file.next().getAs(MimeType.PDF)]
+   });
+    
+    
+  }
+}
